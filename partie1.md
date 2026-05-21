@@ -44,21 +44,19 @@ ORDER BY Nombre_de_commune DESC;
 ### 6/Obtenir la liste des 10 + > département, en terme de superficie
 
 ```sql
-SELECT villes_france_free.ville_nom, villes_france_free.ville_departement, villes_france_free.ville_surface
-
+SELECT villes_france_free.ville_departement, SUM(villes_france_free.ville_surface) AS Surface_département
 FROM villes_france_free
-
-ORDER BY ville_surface DESC
-
+GROUP BY ville_departement
+ORDER BY Surface_département DESC
 LIMIT 10
 ```
 
 ### 7/Compter le nombre de ville dont le nom commence par "Saint"
 
 ```sql
-SELECT COUNT(villes_france_free.ville_nom) AS Nom_par_Saint
+SELECT COUNT(villes_france_free.ville_nom_reel) AS Nom_par_Saint
 FROM villes_france_free
-WHERE villes_france_free.ville_nom LIKE 'Saint%'
+WHERE villes_france_free.ville_nom_reel LIKE 'Saint%'
 ```
 
 ### 8/Obtenir la liste des villes qui ont un nom existants plusieurs fois, et trier afin d'obtenir en premier celles dont le nom est le souvent utilisé par plusieurs communes
@@ -76,4 +74,20 @@ ORDER BY Noms_pareils DESC
 SELECT ville_nom_reel, ville_surface
 FROM villes_france_free
 WHERE ville_surface > (SELECT AVG(ville_surface) FROM villes_france_free)
+```
+
+### 10/Obtenir la liste des départements qui possèdent + de 2 millions d'hab
+
+```sql
+SELECT villes_france_free.ville_nom, villes_france_free.ville_departement, villes_france_free.ville_population_2012
+FROM villes_france_free
+WHERE villes_france_free.ville_population_2012 >= 2000000
+ORDER BY villes_france_free.ville_population_2012 DESC
+```
+### 11/ Remplacez les - par " ", pour toutes les villes commençant par "SAINT-" (Dans la colonne ville_nom)
+
+```sql
+UPDATE villes_france_free
+SET ville_nom = REPLACE(ville_nom,'-',' ')
+WHERE ville_nom LIKE 'SAINT-%'
 ```
