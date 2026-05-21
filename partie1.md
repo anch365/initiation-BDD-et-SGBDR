@@ -56,7 +56,16 @@ LIMIT 10
 ### 7/Compter le nombre de ville dont le nom commence par "Saint"
 
 ```sql
-SELECT villes_france_free.ville_nom, COUNT(villes_france_free.ville_nom) AS Nom_par_Saint
+SELECT COUNT(villes_france_free.ville_nom) AS Nom_par_Saint
 FROM villes_france_free
 WHERE villes_france_free.ville_nom LIKE 'Saint%'
+```
+
+### 8/Obtenir la liste des villes qui ont un nom existants plusieurs fois, et trier afin d'obtenir en premier celles dont le nom est le souvent utilisé par plusieurs communes
+
+```sql
+SELECT villes_france_free.ville_nom, COUNT(*) AS Noms_pareils
+FROM villes_france_free
+GROUP BY villes_france_free.ville_nom
+ORDER BY Noms_pareils DESC
 ```
