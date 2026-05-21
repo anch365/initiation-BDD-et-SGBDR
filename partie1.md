@@ -40,3 +40,23 @@ GROUP BY villes_france_free.ville_departement
 
 ORDER BY Nombre_de_commune DESC;
 ```
+
+### 6/Obtenir la liste des 10 + > département, en terme de superficie
+
+```sql
+SELECT villes_france_free.ville_nom, villes_france_free.ville_departement, villes_france_free.ville_surface
+
+FROM villes_france_free
+
+ORDER BY ville_surface DESC
+
+LIMIT 10
+```
+
+### 7/Compter le nombre de ville dont le nom commence par "Saint"
+
+```sql
+SELECT villes_france_free.ville_nom, COUNT(villes_france_free.ville_nom) AS Nom_par_Saint
+FROM villes_france_free
+WHERE villes_france_free.ville_nom LIKE 'Saint%'
+```
