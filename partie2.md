@@ -25,3 +25,10 @@ FROM commande_ligne
 GROUP BY commande_ligne.nom 
 HAVING COUNT(*)> 1
 ```
+
+### 4/Enregistrer le prix total à lintérieur de chaque ligne des commandes, en fonction de prix unitaire et de la quantité
+
+```sql
+UPDATE commande_ligne
+SET commande_ligne.prix_total = (`prix_unitaire` * `quantite`)
+```
