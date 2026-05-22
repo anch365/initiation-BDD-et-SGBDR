@@ -85,3 +85,9 @@ SELECT commande.date_achat, ROUND(SUM(commande.cache_prix_total), 2) AS Montant_
 FROM commande
 GROUP BY commande.date_achat
 ```
+
+### 10/Ajouter une colonne intitulée "Category" à la table contenant les commandes. Cette colonne contiendra une valeur numérique
+
+```sql
+ALTER TABLE `commande` ADD `category` INT UNSIGNED NOT NULL AFTER `cache_prix_total`
+```
