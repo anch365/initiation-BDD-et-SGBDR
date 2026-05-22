@@ -32,3 +32,13 @@ HAVING COUNT(*)> 1
 UPDATE commande_ligne
 SET commande_ligne.prix_total = (`prix_unitaire` * `quantite`)
 ```
+
+### 5/Obtenir le montant total pour chaqque commande et y voir facilement la date associée à cette commande ainsi que le prénom et nom du client associé
+
+```sql
+SELECT client.nom, client.prenom, commande.date_achat, commande_id, SUM(`prix_total`) AS Montant_Total
+FROM commande_ligne
+INNER JOIN client ON client.id = commande_ligne.commande_id
+INNER JOIN commande ON commande_ligne.commande_id = commande.client_id
+GROUP BY client.nom, client.prenom, commande.date_achat, commande_id
+```
