@@ -42,3 +42,18 @@ INNER JOIN client ON client.id = commande_ligne.commande_id
 INNER JOIN commande ON commande_ligne.commande_id = commande.client_id
 GROUP BY client.nom, client.prenom, commande.date_achat, commande_id
 ```
+
+### 6/Enregistrer le montant total de chaque commande dans le champs intitulé "cache_prix_total"
+
+SELECT commande_ligne.commande_id, ROUND(SUM(commande_ligne.prix_total), 2) AS cache_prix_total
+FROM commande_ligne
+GROUP BY commande_ligne.commande_id
+
+```sql
+UPDATE commande
+INNER JOIN (SELECT commande_ligne.commande_id, ROUND(SUM(commande_ligne.prix_total), 2) AS cache_prix_total
+FROM commande_ligne
+GROUP BY commande_ligne.commande_id) AS Result_total ON commande.id = Result_total.commande_id
+
+SET commande.cache_prix_total = Result_total.cache_prix_total
+```
