@@ -66,3 +66,14 @@ FROM commande
 GROUP BY YEAR(commande.date_achat), MONTH(commande.date_achat)
 ORDER BY YEAR(`date_achat`), MONTH(`date_achat`)
 ```
+
+### 8/Obtenir la liste des 10 clients qui ont effectué le +> montant de commandes, et obtenir ce montant total pour chaque client
+
+```sql
+SELECT client.id, client.nom, client.prenom, ROUND(SUM(`cache_prix_total`)) AS Montant_Total
+FROM commande
+INNER JOIN client ON client.id = commande.client_id
+GROUP BY commande.client_id
+ORDER BY Montant_Total DESC
+LIMIT 10
+```
