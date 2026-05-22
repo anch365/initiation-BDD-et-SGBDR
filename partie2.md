@@ -57,3 +57,12 @@ GROUP BY commande_ligne.commande_id) AS Result_total ON commande.id = Result_tot
 
 SET commande.cache_prix_total = Result_total.cache_prix_total
 ```
+
+### 7/Obtenir le montant global de toutes les commandes, pour chaque mois
+
+```sql
+SELECT DATE(`date_achat`) AS Group_Date_Achat, ROUND(SUM(commande.cache_prix_total)) AS Montant_Global
+FROM commande
+GROUP BY YEAR(commande.date_achat), MONTH(commande.date_achat)
+ORDER BY YEAR(`date_achat`), MONTH(`date_achat`)
+```
