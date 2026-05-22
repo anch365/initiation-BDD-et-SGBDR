@@ -61,7 +61,7 @@ SET commande.cache_prix_total = Result_total.cache_prix_total
 ### 7/Obtenir le montant global de toutes les commandes, pour chaque mois
 
 ```sql
-SELECT DATE(`date_achat`) AS Group_Date_Achat, ROUND(SUM(commande.cache_prix_total)) AS Montant_Global
+SELECT DATE(`date_achat`) AS Group_Date_Achat, ROUND(SUM(commande.cache_prix_total), 2) AS Montant_Global
 FROM commande
 GROUP BY YEAR(commande.date_achat), MONTH(commande.date_achat)
 ORDER BY YEAR(`date_achat`), MONTH(`date_achat`)
@@ -70,10 +70,18 @@ ORDER BY YEAR(`date_achat`), MONTH(`date_achat`)
 ### 8/Obtenir la liste des 10 clients qui ont effectué le +> montant de commandes, et obtenir ce montant total pour chaque client
 
 ```sql
-SELECT client.id, client.nom, client.prenom, ROUND(SUM(`cache_prix_total`)) AS Montant_Total
+SELECT client.id, client.nom, client.prenom, ROUND(SUM(`cache_prix_total`), 2) AS Montant_Total
 FROM commande
 INNER JOIN client ON client.id = commande.client_id
 GROUP BY commande.client_id
 ORDER BY Montant_Total DESC
 LIMIT 10
+```
+
+### 9/Obtenir le montant total des commandes pour chaque date
+
+```sql
+SELECT commande.date_achat, ROUND(SUM(commande.cache_prix_total), 2) AS Montant_total
+FROM commande
+GROUP BY commande.date_achat
 ```
