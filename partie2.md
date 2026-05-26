@@ -110,3 +110,14 @@ END
 ```sql
 CREATE TABLE commande_category(category_id int PRIMARY KEY, description VARCHAR(250))
 ```
+
+### 13/ Insérer les 4 descriptifs de chaque catégorie au sein de la table précédemment créée
+
+```sql
+INSERT INTO info_principales.commande_category(commande_category.category_id, description)
+VALUES
+    (1, 'Commandes moins de 200'),
+    (2, 'Commandes entre 200 et 500'),
+    (3, 'Commandes entre 500 et 1000'),
+    (4, 'Commandes supérieurs 1000')
+```
