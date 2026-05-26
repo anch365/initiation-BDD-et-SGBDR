@@ -104,3 +104,9 @@ WHEN commande.cache_prix_total BETWEEN 500 AND 1000 THEN 3
 ELSE 4
 END
 ```
+
+### 12/ Créer une table intitulée "commande_category" qui contiendra le descriptif de ces catégories
+
+```sql
+CREATE TABLE commande_category(category_id int PRIMARY KEY, description VARCHAR(250))
+```
