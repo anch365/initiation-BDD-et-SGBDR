@@ -121,3 +121,14 @@ VALUES
     (3, 'Commandes entre 500 et 1000'),
     (4, 'Commandes supérieurs 1000')
 ```
+
+### 14/ Supprimer toutes les commandes (et les lignes des commandes) inférieur au 1er février 2019. Cela doit être effectué en 2 requêtes maximum
+
+```sql
+DELETE FROM commande_ligne
+WHERE commande_id IN(
+    SELECT commande.id
+    FROM commande
+    WHERE commande.date_achat<'2019-02-01'
+)
+```
