@@ -91,3 +91,16 @@ GROUP BY commande.date_achat
 ```sql
 ALTER TABLE `commande` ADD `category` INT UNSIGNED NOT NULL AFTER `cache_prix_total`
 ```
+
+### 11/Enregistrer la valeur de la catégorie, en suivant les règles donnés :
+
+```sql
+UPDATE commande
+SET commande.category = 
+CASE 
+WHEN commande.cache_prix_total < 200 THEN 1
+WHEN commande.cache_prix_total BETWEEN 200 AND 500 THEN 2
+WHEN commande.cache_prix_total BETWEEN 500 AND 1000 THEN 3
+ELSE 4
+END
+```
